@@ -4,9 +4,10 @@ import { askQuestion } from "@/lib/rag";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { question } = body;
+    const { question, namespace } = body;
 
     console.log('💬 Chat API received question:', question);
+    console.log('📂 Received namespace:', namespace);
 
     if (!question) {
       return NextResponse.json(
@@ -15,12 +16,12 @@ export async function POST(request) {
       );
     }
 
-    // Use the namespace from your uploaded PDF
-    // Replace this with the actual namespace from your upload
-    const namespace = "1763901349048-Dsa"; // Use your actual PDF namespace
+    // Use the namespace from the request body
+    const ns = namespace || "1766264062684-Akash_final_resume";
+    console.log('📂 Using namespace:', ns);
     
     // Get answer from RAG system
-    const answer = await askQuestion(question, namespace);
+    const answer = await askQuestion(question, ns);
 
     console.log('✅ Chat API returning answer');
     return NextResponse.json({ answer });
