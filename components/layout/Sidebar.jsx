@@ -5,17 +5,17 @@ export default function Sidebar({ uploadedFiles, currentNamespace, onSwitchDocum
   if (uploadedFiles.length === 0) return null;
 
   return (
-    <div className="lg:w-72 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-6 h-fit">
+    <div className="lg:w-72 bg-zinc-900 rounded-xl border border-zinc-800 p-5 h-fit">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-bold text-white text-lg flex items-center gap-2">
-          <span className="text-xl">📁</span>
+        <h3 className="font-semibold text-white text-base flex items-center gap-2">
+          <span className="text-lg">📁</span>
           Documents
         </h3>
-        <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
+        <span className="bg-zinc-800 text-zinc-300 text-xs px-2.5 py-1 rounded-lg font-medium border border-zinc-700">
           {uploadedFiles.length}
         </span>
       </div>
-      <div className="space-y-3 max-h-96 overflow-y-auto custom-scrollbar">
+      <div className="space-y-2 max-h-96 overflow-y-auto custom-scrollbar">
         {uploadedFiles.map((file, idx) => (
           <DocumentCard
             key={idx}
