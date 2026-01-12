@@ -13,13 +13,13 @@ export default function Message({ message }) {
     setDisplayedText("");
 
     const interval = setInterval(() => {
-      setDisplayedText((prev) => prev + a[index]);
-      index++;
-
-      if (index >= a.length) {
+      if (index < a.length) {
+        setDisplayedText((prev) => prev + a[index]);
+        index++;
+      } else {
         clearInterval(interval);
       }
-    }, 18); // typing speed (lower = faster)
+    }, 18);
 
     return () => clearInterval(interval);
   }, [a, type]);
@@ -60,9 +60,8 @@ export default function Message({ message }) {
 
             <p className="whitespace-pre-wrap leading-relaxed text-sm">
               {displayedText}
-              {/* typing cursor */}
               {displayedText.length < a.length && (
-                <span className="inline-block w-2 h-4 ml-0.5 bg-zinc-400/60 animate-pulse align-middle" />
+                <span className="inline-block w-[2px] h-4 ml-0.5 bg-zinc-400 animate-pulse align-middle" />
               )}
             </p>
           </>
