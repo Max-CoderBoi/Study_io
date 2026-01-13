@@ -3,11 +3,18 @@ import { useEffect, useState } from "react";
 export default function Message({ message }) {
   const { type, q, a, isError, isSuccess } = message;
   const [displayedText, setDisplayedText] = useState(
-    type === "ai" ? "" : a
+    type === "user" ? a : ""
   );
 
   useEffect(() => {
-    if (type !== "ai" || !a) return;
+    // For user messages, show immediately
+    if (type === "user") {
+      setDisplayedText(a);
+      return;
+    }
+
+    // For AI messages, show typing effect
+    if (!a) return;
 
     let index = 0;
     setDisplayedText("");
@@ -66,6 +73,44 @@ export default function Message({ message }) {
             </p>
           </>
         )}
+      </div>
+    </div>
+  );
+}
+
+// Demo usage
+function Demo() {
+  const [messages, setMessages] = useState([
+    { type: "user", q: "Hello! How are you?", a: "Hello! How are you?" },
+  ]);
+
+  const addAIMessage = () => {
+    setMessages(prev => [...prev, {
+      type: "ai",
+      q: null,
+      a: "I'm doing great! This is a typing effect demonstration. Watch as each character appears one by one, creating a realistic typing animation. Pretty cool, right?",
+      isError: false,
+      isSuccess: false
+    }]);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 p-8">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-2xl font-bold text-zinc-100 mb-6">Message Typing Effect</h1>
+        
+        <div className="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 mb-4">
+          {messages.map((msg, idx) => (
+            <Message key={idx} message={msg} />
+          ))}
+        </div>
+
+        <button
+          onClick={addAIMessage}
+          className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-lg transition-colors"
+        >
+          Add AI Message
+        </button>
       </div>
     </div>
   );
