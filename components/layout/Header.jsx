@@ -17,7 +17,7 @@ export default function Header() {
         </div>
       </div>
       <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-        Upload your study materials and get instant, intelligent answers powered by advanced AI
+        Upload your study materials and ask questions to enhance your learning experience.
       </p>
     </div>
   );
